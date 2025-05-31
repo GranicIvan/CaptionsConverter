@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Text;
+
 class Program
 {
     public static void Main(String[] args)
@@ -20,11 +22,13 @@ class Program
             printHelp();
             return;
         }
-        else if (args.Length > 1) {
-            fileExtensions= args[1];
+        else if (args.Length > 1)
+        {
+            fileExtensions = args[1];
         }
 
         FileReading(args[0], fileExtensions);
+        //ReencodeFilesFromFolder(args[0], fileExtensions);
 
 
         Console.WriteLine("\nKraj");
@@ -60,6 +64,7 @@ class Program
                 string contents = File.ReadAllText(file);
                 string result = changeCharacters(contents);
                 File.WriteAllText(file, result);
+                
             }
         }
         catch (Exception ex)
@@ -69,6 +74,50 @@ class Program
             Console.WriteLine(ex.ToString());
         }
     }
+
+    static void ReencodeFilesFromFolder(string folderPath, string fileExtension)
+    {
+        try
+        {
+            foreach (string file in Directory.EnumerateFiles(folderPath, fileExtension))
+            {
+                Console.WriteLine($"Re-encoding: {file}");
+
+                // Read the file using Windows-1252 encoding
+                string contents = File.ReadAllText(file, Encoding.GetEncoding("windows-1252"));
+
+                // Write the same contents back using UTF-8
+                File.WriteAllText(file, contents, Encoding.UTF8);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error during re-encoding:");
+            Console.WriteLine(ex.ToString());
+        }
+    }
+    static void ReencodeFiles(string file)
+    {
+        try
+        {
+
+
+            Console.WriteLine($"Re-encoding: {file}");
+
+            // Read the file using Windows-1252 encoding
+            string contents = File.ReadAllText(file, Encoding.GetEncoding("windows-1252"));
+
+            // Write the same contents back using UTF-8
+            File.WriteAllText(file, contents, Encoding.UTF8);
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error during re-encoding:");
+            Console.WriteLine(ex.ToString());
+        }
+    }
+
 
     static void printHelp()
     {
