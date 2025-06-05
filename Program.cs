@@ -27,9 +27,7 @@ class Program
             fileExtensions = args[1];
         }
 
-        FileReading(args[0], fileExtensions);
-        //ReencodeFilesFromFolder(args[0], fileExtensions);
-
+        FileReading(args[0], fileExtensions);       
 
         Console.WriteLine("\nKraj");
     }
@@ -50,8 +48,6 @@ class Program
         string result = replacements.Aggregate(contents, (current, pair) => current.Replace(pair.Key, pair.Value));
 
         return result;
-
-
     }
 
     static void FileReading(string folderPath, string fileExtension)
@@ -70,54 +66,9 @@ class Program
         catch (Exception ex)
         {
             printHelp();
-
             Console.WriteLine(ex.ToString());
         }
     }
-
-    static void ReencodeFilesFromFolder(string folderPath, string fileExtension)
-    {
-        try
-        {
-            foreach (string file in Directory.EnumerateFiles(folderPath, fileExtension))
-            {
-                Console.WriteLine($"Re-encoding: {file}");
-
-                // Read the file using Windows-1252 encoding
-                string contents = File.ReadAllText(file, Encoding.GetEncoding("windows-1252"));
-
-                // Write the same contents back using UTF-8
-                File.WriteAllText(file, contents, Encoding.UTF8);
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error during re-encoding:");
-            Console.WriteLine(ex.ToString());
-        }
-    }
-    static void ReencodeFiles(string file)
-    {
-        try
-        {
-
-
-            Console.WriteLine($"Re-encoding: {file}");
-
-            // Read the file using Windows-1252 encoding
-            string contents = File.ReadAllText(file, Encoding.GetEncoding("windows-1252"));
-
-            // Write the same contents back using UTF-8
-            File.WriteAllText(file, contents, Encoding.UTF8);
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error during re-encoding:");
-            Console.WriteLine(ex.ToString());
-        }
-    }
-
 
     static void printHelp()
     {
@@ -126,15 +77,6 @@ class Program
         Console.WriteLine("Path must use / or \\\\ or \"\\\" ");
         Console.WriteLine("Examples: C:/user/file.zip  or  C:\\\\user\\\\file.zip or \"C:\\user\\file.zip\" \n");
         Console.WriteLine("Default for file extension is .srt");
-
-        /*
-        Console.WriteLine("Options:");
-        Console.WriteLine("  -n : Include numbers");
-        Console.WriteLine("  -l : Include lowercase letters");
-        Console.WriteLine("  -u : Include uppercase letters");
-        Console.WriteLine("  -s : Include special characters");
-        */
-        //TODO Explain unsuppoted terminals, and they print mant rows instead of updateing one, Also slower
-    }
+     }
 }
 
