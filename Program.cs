@@ -1,8 +1,14 @@
-﻿class Program
+﻿using System.Text;
+using Ude;
+
+class Program
 {
     public static void Main(String[] args)
     {
         Console.WriteLine("Program start!\n");
+
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
 
         //Console.WriteLine(args[0]);
         string fileExtensions = "*.str";
@@ -23,7 +29,7 @@
             fileExtensions = args[1];
         }
 
-        FileReading(args[0], fileExtensions);       
+        FileReading(args[0], fileExtensions);
 
         Console.WriteLine("\nKraj");
     }
@@ -50,13 +56,18 @@
     {
         try
         {
+            
+
+
             foreach (string file in Directory.EnumerateFiles(folderPath, "*.srt"))
             {
                 Console.WriteLine(file);
-                string contents = File.ReadAllText(file);
+                //string contents = File.ReadAllText(file);
+                Encoding sourceEncoding = DetectEncoding(file);
+                string contents = File.ReadAllText(file, sourceEncoding);
                 string result = changeCharacters(contents);
                 File.WriteAllText(file, result);
-                
+
             }
         }
         catch (Exception ex)
@@ -72,7 +83,35 @@
         Console.WriteLine("Files will be overwritten");
         Console.WriteLine("Path must use / or \\\\ or \"\\\" ");
         Console.WriteLine("Examples: C:/user/file.zip  or  C:\\\\user\\\\file.zip or \"C:\\user\\file.zip\" \n");
-        Console.WriteLine("Default for file extension is .srt");
-     }
+        Console.WriteLine("Default for file extension is .srt\n");
+    }
+
+
+    static Encoding DetectEncoding(string filePath)
+    {
+        using var fileStream = File.OpenRead(filePath);
+        var detector = new CharsetDetector();
+        detector.Feed(fileStream);
+        detector.DataEnd();
+
+        if (detector.Charset != null)
+        {
+            Console.WriteLine($"Detected encoding: {detector.Charset} for file: {Path.GetFileName(filePath)}");
+
+            // Try to return the corresponding Encoding object
+            try
+            {
+                return Encoding.GetEncoding(detector.Charset);
+            }
+            catch
+            {
+                Console.WriteLine("Unsupported encoding detected, falling back to Windows-1252.");
+            }
+        }
+
+        // Fallback
+        return Encoding.GetEncoding("windows-1252");
+    }
+
 }
 
