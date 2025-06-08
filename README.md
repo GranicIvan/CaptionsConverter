@@ -17,7 +17,7 @@ A simple command-line tool that automatically detects and fixes subtitle file en
 
 ## 💾 Download
 
-👉 [**Click here to download the latest version (.zip)**](https://github.com/your-username/CaptionsConverter/releases/latest)
+👉 [**Click here to download the latest version (.zip)**](https://github.com/GranicIvan/CaptionsConverter/releases/latest)
 
 > Unzip it and run the `CaptionsConverter.exe` in terminal or command prompt.
 
