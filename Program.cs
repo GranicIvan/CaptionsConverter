@@ -9,8 +9,6 @@ class Program
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-
-        //Console.WriteLine(args[0]);
         string fileExtensions = "*.str";
 
         if (args.Length < 1)
@@ -55,18 +53,15 @@ class Program
     static void FileReading(string folderPath, string fileExtension)
     {
         try
-        {
-            
-
+        {           
 
             foreach (string file in Directory.EnumerateFiles(folderPath, "*.srt"))
             {
-                Console.WriteLine(file);
-                //string contents = File.ReadAllText(file);
+                //Console.WriteLine(file);                
                 Encoding sourceEncoding = DetectEncoding(file);
                 string contents = File.ReadAllText(file, sourceEncoding);
-                string result = changeCharacters(contents);
-                File.WriteAllText(file, result);
+                string result = changeCharacters(contents);               
+                File.WriteAllText(file, result, Encoding.UTF8);
 
             }
         }
