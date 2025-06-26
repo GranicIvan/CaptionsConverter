@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptionsConverter", "CaptionsConverter\CaptionsConverter.csproj", "{B4171FC7-24ED-880C-F842-2540834AA0C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{32C2F542-7F41-3435-0CB5-EBAEA6793561} = {32C2F542-7F41-3435-0CB5-EBAEA6793561}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptionsConverter.Logic", "CaptionsConverter.Logic\CaptionsConverter.Logic.csproj", "{32C2F542-7F41-3435-0CB5-EBAEA6793561}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{B4171FC7-24ED-880C-F842-2540834AA0C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4171FC7-24ED-880C-F842-2540834AA0C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4171FC7-24ED-880C-F842-2540834AA0C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32C2F542-7F41-3435-0CB5-EBAEA6793561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C2F542-7F41-3435-0CB5-EBAEA6793561}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C2F542-7F41-3435-0CB5-EBAEA6793561}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C2F542-7F41-3435-0CB5-EBAEA6793561}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
