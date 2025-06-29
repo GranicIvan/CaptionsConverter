@@ -10,25 +10,24 @@ class Program
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-        string fileExtensions = "*.str";
+        string fileExtensions = "*.str"; // Default file extension
 
-        if (args.Length < 1)
+        if(!CliHandler.ArgumentHandling(args, ref fileExtensions))
         {
-            Console.WriteLine("Program needs argument, path to folder that contains files to change");
-            CliHandler.printHelp();
+            Console.WriteLine("Exiting program due to invalid arguments.");
             return;
         }
-        else if (args[0].ToLower() == "help" || args[0].ToLower() == "-h" || args[0].ToLower() == "--help" || args[0].ToLower() == "-help")
-        {
-            CliHandler.printHelp();
-            return;
-        }
-        else if (args.Length > 1)
-        {
-            fileExtensions = args[1];
-        }
 
-        CCLogic.FileReading(args[0], fileExtensions);
+        try
+        {
+            CCLogic.FileReading(args[0], fileExtensions);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            CliHandler.printHelp();           
+        }
+        
 
         Console.WriteLine("\nKraj");
     }

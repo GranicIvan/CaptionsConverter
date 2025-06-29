@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptionsConverter", "CaptionsConverter\CaptionsConverter.csproj", "{B4171FC7-24ED-880C-F842-2540834AA0C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptionsConverter.CLI", "CaptionsConverter\CaptionsConverter.CLI.csproj", "{B4171FC7-24ED-880C-F842-2540834AA0C9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{32C2F542-7F41-3435-0CB5-EBAEA6793561} = {32C2F542-7F41-3435-0CB5-EBAEA6793561}
 	EndProjectSection

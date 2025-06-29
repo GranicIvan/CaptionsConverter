@@ -6,18 +6,9 @@ namespace CaptionsConverter.Logic
     public class CCLogic
     {
 
-        //public static void printHelp()
-        //{
-        //    Console.WriteLine("Usage: ./CaptionsConverter.exe <FolderPath> [file extension]");
-        //    Console.WriteLine("Files will be overwritten");
-        //    Console.WriteLine("Path must use / or \\\\ or \"\\\" ");
-        //    Console.WriteLine("Examples: C:/user/file.zip  or  C:\\\\user\\\\file.zip or \"C:\\user\\file.zip\" \n");
-        //    Console.WriteLine("Default for file extension is .srt\n");
-        //}
-
         public static string changeCharacters(string contents)
         {
-
+            // TODO: Add more language specific characters if needed
             var replacements = new Dictionary<char, char>
             {
                 ['è'] = 'č',
@@ -49,10 +40,9 @@ namespace CaptionsConverter.Logic
 
                 }
             }
-            catch (Exception ex)
-            {
-                //CCLogic.printHelp(); //TODO 
-                Console.WriteLine(ex.ToString());
+            catch (Exception)
+            {               
+                throw;
             }
         }
 
@@ -75,6 +65,7 @@ namespace CaptionsConverter.Logic
                 }
                 catch
                 {
+                    //TODO: Rethrow to be handled by the caller
                     Console.WriteLine("Unsupported encoding detected, falling back to Windows-1252.");
                 }
             }
