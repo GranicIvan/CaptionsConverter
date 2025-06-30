@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <!-- <ImplicitUsings>enable</ImplicitUsings> --> <!-- Default -->
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms> <!-- <UseWindowsForms>true</UseWindowsForms> --> <!-- new -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CaptionsConverter.Logic\CaptionsConverter.Logic.csproj" />
+  </ItemGroup>
+
+</Project>
