@@ -29,7 +29,6 @@ namespace CaptionsConverter.Logic
         {
             try
             {
-
                 foreach (string file in Directory.EnumerateFiles(folderPath, "*.srt"))
                 {
                     //Console.WriteLine(file);                
@@ -49,6 +48,9 @@ namespace CaptionsConverter.Logic
 
         static Encoding DetectEncoding(string filePath)
         {
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             using var fileStream = File.OpenRead(filePath);
             var detector = new CharsetDetector();
             detector.Feed(fileStream);

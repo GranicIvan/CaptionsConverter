@@ -8,7 +8,7 @@ class Program
     {
         Console.WriteLine("Program start!\n");
 
-        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
         string fileExtensions = "*.str"; // Default file extension
 
