@@ -48,7 +48,21 @@ namespace CaptionsConverter.GUI.Views
             }
 
 
-            CCLogic.FileReading(_selectedFolderPath, extension);
+            ConversionResult result = CCLogic.FileReading(_selectedFolderPath, extension);           
+
+            MessageBoxImage icon = result.Status switch
+            {
+                ConversionStatus.Success => MessageBoxImage.Information,
+                ConversionStatus.PartialSuccess => MessageBoxImage.Warning,
+                ConversionStatus.SkippedAllFiles => MessageBoxImage.Warning,
+                ConversionStatus.NoFilesFound => MessageBoxImage.Warning,
+                ConversionStatus.Failed => MessageBoxImage.Error,
+                _ => MessageBoxImage.None
+            };
+
+            MessageBox.Show(result.Message, result.Status.ToString(), MessageBoxButton.OK, icon);
+
+
 
         }
     }

@@ -21,7 +21,7 @@ namespace CaptionsConverter.CLILogic
         {
             if (args.Length < 1)
             {
-                Console.WriteLine("Program needs argument, path to folder that contains files to change");
+                Console.WriteLine("Program needs argument(s), path to folder that contains files to change");
                 printHelp();                
                 return false;
             }

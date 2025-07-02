@@ -25,23 +25,72 @@ namespace CaptionsConverter.Logic
         }
 
 
-        public static void FileReading(string folderPath, string fileExtension)
+        public static ConversionResult FileReading(string folderPath, string fileExtension)
         {
             try
             {
-                foreach (string file in Directory.EnumerateFiles(folderPath, "*.srt"))
+                var files = Directory.EnumerateFiles(folderPath, "*"+fileExtension);
+
+                if (!files.Any())
+                {
+                    return new ConversionResult
+                    {
+                        Status = ConversionStatus.NoFilesFound,
+                        Message = "No files found with the specified extension."
+                    };
+                }
+
+                int successCount = 0;
+
+                foreach (string file in files)
                 {
                     //Console.WriteLine(file);                
                     Encoding sourceEncoding = DetectEncoding(file);
                     string contents = File.ReadAllText(file, sourceEncoding);
                     string result = CCLogic.changeCharacters(contents);
+                    if(contents == result)
+                    {                       
+                        continue; // To not overwrite the file if no changes were made
+                    }
                     File.WriteAllText(file, result, Encoding.UTF8);
+                    successCount++;
 
                 }
+
+                if (successCount == 0)
+                {
+                    return new ConversionResult
+                    {
+                        Status = ConversionStatus.SkippedAllFiles,
+                        Message = "All files were skipped (no changes detected)."
+                    };
+                }
+
+
+                if (successCount < files.Count())
+                {
+                    return new ConversionResult
+                    {
+                        Status = ConversionStatus.PartialSuccess,
+                        Message = $"Changes were made in {successCount} of {files.Count()} files. Some were skipped or failed."
+                    };
+                }
+
+                return new ConversionResult
+                {
+                    Status = ConversionStatus.Success,
+                    Message = "All files converted successfully."
+                };
+
             }
-            catch (Exception)
-            {               
-                throw;
+            catch (Exception ex)
+            {
+                return new ConversionResult
+                {
+                    Status = ConversionStatus.Failed,
+                    Message = $"Unexpected error: {ex.Message}"
+                };
+                //throw;
             }
         }
 
