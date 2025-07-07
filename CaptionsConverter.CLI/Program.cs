@@ -6,13 +6,11 @@ class Program
 {
     public static void Main(String[] args)
     {
-        Console.WriteLine("Program start!\n");
+        Console.WriteLine("Program start!\n");        
 
-        //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        string fileExtensions = ""; // "*.str"; // Default file extension
 
-        string fileExtensions = "*.str"; // Default file extension
-
-        if(!CliHandler.ArgumentHandling(args, ref fileExtensions))
+        if (!CliHandler.ArgumentHandling(args, ref fileExtensions))
         {
             Console.WriteLine("Exiting program due to invalid arguments.");
             return;
@@ -28,7 +26,6 @@ class Program
             CliHandler.printHelp();           
         }
         
-
         Console.WriteLine("\nKraj");
     }
 

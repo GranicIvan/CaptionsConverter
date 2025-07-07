@@ -27,12 +27,17 @@ namespace CaptionsConverter.Logic
 
         public static ConversionResult FileReading(string folderPath, string fileExtension)
         {
+            if ( string.IsNullOrWhiteSpace(fileExtension))
+            {
+                fileExtension = "*.str"; // Default file extension
+            }
             try
             {
                 var files = Directory.EnumerateFiles(folderPath, "*"+fileExtension);
 
                 if (!files.Any())
                 {
+                    //TODO: Find if there are files with different extensions, 
                     return new ConversionResult
                     {
                         Status = ConversionStatus.NoFilesFound,
