@@ -1,6 +1,8 @@
 ﻿using CaptionsConverter.Logic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 
 namespace CaptionsConverter.GUI.Views
@@ -61,9 +63,64 @@ namespace CaptionsConverter.GUI.Views
             };
 
             MessageBox.Show(result.Message, result.Status.ToString(), MessageBoxButton.OK, icon);
-
-
-
         }
+
+
+        private void DragOverFolder(object sender, DragEventArgs e)
+        {
+            // Check if user is dragging a folder
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (paths.Length == 1 && Directory.Exists(paths[0]))
+                {
+                    e.Effects = DragDropEffects.Copy;
+                    DropZoneBorder.BorderBrush = Brushes.DodgerBlue;
+                    DropZoneBorder.Background = new SolidColorBrush(Color.FromArgb(30, 30, 144, 255)); // Light blue tint
+                }
+                else
+                {
+                    e.Effects = DragDropEffects.None;
+                }
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None;
+            }
+
+            e.Handled = true;
+        }
+
+        private void DragLeaveFolder(object sender, DragEventArgs e)
+        {
+
+            resetBorderColor();            
+        }
+
+        private void DropFolder(object sender, DragEventArgs e)
+        {
+            resetBorderColor();
+
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (paths.Length == 1 && Directory.Exists(paths[0]))
+                {
+                    _selectedFolderPath = paths[0];
+                    SelectedFolderText.Text = $"Selected folder:\n{_selectedFolderPath}";
+                }
+                else
+                {
+                    MessageBox.Show("Please drop only one valid folder.", "Invalid drop", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        private void resetBorderColor() 
+        {
+            DropZoneBorder.BorderBrush = Brushes.Gray;
+            DropZoneBorder.Background = Brushes.Transparent;
+        }
+
     }
 }
