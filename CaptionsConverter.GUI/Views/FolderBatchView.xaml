@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="900"
              Background="#F5F7FA">
-    
+
     <UserControl.Resources>
         <!-- Button Style -->
         <Style x:Key="ModernButton" TargetType="Button">
@@ -123,16 +123,19 @@
         <ScrollViewer Grid.Row="1" 
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">
-            <StackPanel HorizontalAlignment="Center" 
-                        VerticalAlignment="Top" 
-                        MaxWidth="700"
-                        Margin="30,30,30,30">
+            <!-- Single WrapPanel containing all elements -->
+            <WrapPanel Orientation="Horizontal"
+                       HorizontalAlignment="Center"
+                       Margin="30">
 
                 <!-- Folder Selection Card -->
                 <Border Background="White" 
                         CornerRadius="8" 
                         Padding="20"
-                        Margin="0,0,0,15">
+                        Margin="10"
+                        MinWidth="350"
+                        MaxWidth="450"
+                        VerticalAlignment="Top">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="10" 
                                           ShadowDepth="2" 
@@ -212,7 +215,10 @@
                 <Border Background="White" 
                         CornerRadius="8" 
                         Padding="20"
-                        Margin="0,0,0,15">
+                        Margin="10"
+                        MinWidth="350"
+                        MaxWidth="450"
+                        VerticalAlignment="Top">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="10" 
                                           ShadowDepth="2" 
@@ -238,21 +244,43 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Action Buttons -->
-                <StackPanel>
-                    <Button Content="✨ Convert All Files"
-                            Click="ConvertAllFiles_Click"        
-                            Style="{StaticResource SuccessButton}"
-                            HorizontalAlignment="Stretch"
-                            Margin="0,0,0,10"
-                            Height="45"/>
+                <!-- Action Buttons Card -->
+                <Border Background="White" 
+                        CornerRadius="8" 
+                        Padding="20"
+                        Margin="10"
+                        MinWidth="350"
+                        MaxWidth="450"
+                        VerticalAlignment="Top">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="2" 
+                                          Opacity="0.1" 
+                                          Color="#000000"/>
+                    </Border.Effect>
 
-                    <Button Content="← Back to Menu" 
-                            Click="Back_Click" 
-                            Style="{StaticResource SecondaryButton}"
-                            HorizontalAlignment="Stretch"/>
-                </StackPanel>
-            </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Actions" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold"
+                                   Foreground="#24292E"
+                                   Margin="0,0,0,12"/>
+
+                        <Button Content="✨ Convert All Files"
+                                Click="ConvertAllFiles_Click"        
+                                Style="{StaticResource SuccessButton}"
+                                HorizontalAlignment="Stretch"
+                                Margin="0,0,0,10"
+                                Height="45"/>
+
+                        <Button Content="← Back to Menu" 
+                                Click="Back_Click" 
+                                Style="{StaticResource SecondaryButton}"
+                                HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </Border>
+
+            </WrapPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>
