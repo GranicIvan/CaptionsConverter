@@ -8,7 +8,7 @@ class Program
     {
         Console.WriteLine("Program start!\n");        
 
-        string fileExtensions = ""; // "*.str"; // Default file extension
+        string fileExtensions = ""; // Default file extension is *.str
 
         if (!CliHandler.ArgumentHandling(args, ref fileExtensions))
         {

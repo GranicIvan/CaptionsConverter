@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CaptionsConverter.GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Captions Converter" 
+        Height="700" 
+        Width="900"
+        MinHeight="650"
+        MinWidth="850"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F7FA">
     <Grid>
         <ContentControl x:Name="MainContent"/>
     </Grid>

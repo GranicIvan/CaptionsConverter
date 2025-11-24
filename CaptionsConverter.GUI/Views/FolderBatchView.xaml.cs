@@ -34,7 +34,8 @@ namespace CaptionsConverter.GUI.Views
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 _selectedFolderPath = dialog.SelectedPath;
-                SelectedFolderText.Text = $"Selected folder:\n{dialog.SelectedPath}";
+                SelectedFolderText.Text = $"📂 {dialog.SelectedPath}";
+                SelectedFolderDisplay.Visibility = Visibility.Visible;
             }
         }
 
@@ -107,7 +108,8 @@ namespace CaptionsConverter.GUI.Views
                 if (paths.Length == 1 && Directory.Exists(paths[0]))
                 {
                     _selectedFolderPath = paths[0];
-                    SelectedFolderText.Text = $"Selected folder:\n{_selectedFolderPath}";
+                    SelectedFolderText.Text = $"📂 {_selectedFolderPath}";
+                    SelectedFolderDisplay.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -118,8 +120,8 @@ namespace CaptionsConverter.GUI.Views
 
         private void resetBorderColor() 
         {
-            DropZoneBorder.BorderBrush = Brushes.Gray;
-            DropZoneBorder.Background = Brushes.Transparent;
+            DropZoneBorder.BorderBrush = new SolidColorBrush(Color.FromRgb(208, 215, 222)); // #D0D7DE
+            DropZoneBorder.Background = new SolidColorBrush(Color.FromRgb(246, 248, 250)); // #F6F8FA
         }
 
     }

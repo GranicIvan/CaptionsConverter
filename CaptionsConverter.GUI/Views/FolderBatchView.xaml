@@ -5,53 +5,254 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CaptionsConverter.GUI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Text="Convert all files in a folder" FontSize="24" Margin="0 0 0 20"/>
-        <!-- Folder selection button -->
-        <Button Content="Select Folder" Click="SelectFolder_Click" Margin="0 0 0 10"/>
+             d:DesignHeight="700" d:DesignWidth="900"
+             Background="#F5F7FA">
+    
+    <UserControl.Resources>
+        <!-- Button Style -->
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="#4A90E2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#5DA3F0"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#3A7BC8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-        <Border x:Name="DropZoneBorder"
-        BorderBrush="Gray"
-        BorderThickness="1"
-        Margin="0 0 0 20"
-        Padding="20"
-        AllowDrop="True"
-        Background="Transparent"
-        Drop="DropFolder"
-        DragOver="DragOverFolder"
-        DragLeave="DragLeaveFolder"
-        HorizontalAlignment="Stretch">
+        <!-- Secondary Button Style -->
+        <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
+            <Setter Property="Background" Value="#6C757D"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#7D8A94"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#5A6268"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-            <Grid>
-                <TextBlock Text="Drag and drop folder here"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontStyle="Italic"
-                   Foreground="DarkGray"
-                   TextAlignment="Center"
-                   IsHitTestVisible="False"/>
-            </Grid>
+        <!-- Success Button Style -->
+        <Style x:Key="SuccessButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
+            <Setter Property="Background" Value="#28A745"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#34C759"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#218838"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- TextBox Style -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderBrush" Value="#D0D7DE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#4A90E2"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#4A90E2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="White" Padding="20" 
+                BorderBrush="#E1E4E8" BorderThickness="0,0,0,1">
+            <StackPanel>
+                <TextBlock Text="📁 Batch Folder Conversion" 
+                           FontSize="28" 
+                           FontWeight="Bold"
+                           Foreground="#24292E"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Convert all caption files in a folder at once" 
+                           FontSize="14" 
+                           Foreground="#6A737D"
+                           HorizontalAlignment="Center"
+                           Margin="0,5,0,0"/>
+            </StackPanel>
         </Border>
 
+        <!-- Main Content -->
+        <ScrollViewer Grid.Row="1" 
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel HorizontalAlignment="Center" 
+                        VerticalAlignment="Top" 
+                        MaxWidth="700"
+                        Margin="30,30,30,30">
 
+                <!-- Folder Selection Card -->
+                <Border Background="White" 
+                        CornerRadius="8" 
+                        Padding="20"
+                        Margin="0,0,0,15">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="2" 
+                                          Opacity="0.1" 
+                                          Color="#000000"/>
+                    </Border.Effect>
 
-        <!-- Label to show selected folder path -->
-        <TextBlock x:Name="SelectedFolderText" Text="" TextWrapping="Wrap" TextAlignment="Center" Margin="0 0 0 20" FontStyle="Italic" Foreground="Gray"/>
+                    <StackPanel>
+                        <TextBlock Text="Select Folder" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold"
+                                   Foreground="#24292E"
+                                   Margin="0,0,0,12"/>
 
-        <!-- Custom extension input -->
-        <StackPanel Margin="0 0 0 20">
-            <TextBlock Text="File extension (optional) - .srt is default:" Margin="0 0 0 5"/>
-            <TextBox x:Name="CustomExtensionInput"
-             
-             ToolTip="Enter a file extension like '.txt' or '.str'. Leave empty to process .srt files."/>
-        </StackPanel>
-        
-        <!-- Convert button -->
-        <Button Content="Convert All Files"
-                Click="ConvertAllFiles_Click"              
-                Margin="0 0 0 10"/>
+                        <Button Content="🗂️ Choose Folder" 
+                                Click="SelectFolder_Click" 
+                                Style="{StaticResource ModernButton}"
+                                HorizontalAlignment="Stretch"
+                                Margin="0,0,0,12"/>
 
-        <Button Content="Back to Menu" Click="Back_Click" Margin="0 10 0 0"/>
-    </StackPanel>
+                        <!-- Drop Zone -->
+                        <Border x:Name="DropZoneBorder"
+                                BorderBrush="#D0D7DE"
+                                BorderThickness="2"
+                                CornerRadius="6"
+                                Padding="25"
+                                AllowDrop="True"
+                                Background="#F6F8FA"
+                                Drop="DropFolder"
+                                DragOver="DragOverFolder"
+                                DragLeave="DragLeaveFolder"
+                                HorizontalAlignment="Stretch"
+                                MinHeight="80">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BorderBrush" Value="#4A90E2"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="📥" 
+                                           FontSize="28"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,0,0,8"/>
+                                <TextBlock Text="Drag and drop folder here"
+                                           HorizontalAlignment="Center"
+                                           FontSize="13"
+                                           Foreground="#6A737D"
+                                           TextAlignment="Center"
+                                           IsHitTestVisible="False"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Selected Folder Display -->
+                        <Border x:Name="SelectedFolderDisplay"
+                                Background="#E8F5E9"
+                                BorderBrush="#4CAF50"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                Padding="10"
+                                Margin="0,12,0,0"
+                                Visibility="Collapsed">
+                            <TextBlock x:Name="SelectedFolderText" 
+                                       Text="" 
+                                       TextWrapping="Wrap" 
+                                       FontSize="12"
+                                       Foreground="#2E7D32"/>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- File Extension Card -->
+                <Border Background="White" 
+                        CornerRadius="8" 
+                        Padding="20"
+                        Margin="0,0,0,15">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="2" 
+                                          Opacity="0.1" 
+                                          Color="#000000"/>
+                    </Border.Effect>
+
+                    <StackPanel>
+                        <TextBlock Text="File Extension (Optional)" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold"
+                                   Foreground="#24292E"
+                                   Margin="0,0,0,6"/>
+                        <TextBlock Text="Default: .srt files" 
+                                   FontSize="12" 
+                                   Foreground="#6A737D"
+                                   Margin="0,0,0,10"/>
+
+                        <TextBox x:Name="CustomExtensionInput"
+                                 Style="{StaticResource ModernTextBox}"
+                                 ToolTip="Enter a file extension like '.txt' or '.sub'. Leave empty to process .srt files."
+                                 Text=".srt"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Action Buttons -->
+                <StackPanel>
+                    <Button Content="✨ Convert All Files"
+                            Click="ConvertAllFiles_Click"        
+                            Style="{StaticResource SuccessButton}"
+                            HorizontalAlignment="Stretch"
+                            Margin="0,0,0,10"
+                            Height="45"/>
+
+                    <Button Content="← Back to Menu" 
+                            Click="Back_Click" 
+                            Style="{StaticResource SecondaryButton}"
+                            HorizontalAlignment="Stretch"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>
