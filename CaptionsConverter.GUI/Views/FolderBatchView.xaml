@@ -5,73 +5,145 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CaptionsConverter.GUI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="540"
-             Background="#F5F7FA">
-
+             d:DesignHeight="900" d:DesignWidth="540">
+    
     <UserControl.Resources>
-        <!-- Button Style -->
+        <!-- Gradient Brushes -->
+        <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#667eea" Offset="0"/>
+            <GradientStop Color="#764ba2" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="PrimaryGradientHover" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#7c8ef0" Offset="0"/>
+            <GradientStop Color="#8a5bb5" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="SuccessGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#11998e" Offset="0"/>
+            <GradientStop Color="#38ef7d" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="SuccessGradientHover" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#13b29e" Offset="0"/>
+            <GradientStop Color="#45f98e" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="SecondaryGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#434343" Offset="0"/>
+            <GradientStop Color="#000000" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#f5f7fa" Offset="0"/>
+            <GradientStop Color="#c3cfe2" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#667eea" Offset="0"/>
+            <GradientStop Color="#764ba2" Offset="0.5"/>
+            <GradientStop Color="#667eea" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Modern Button Style with Gradient -->
         <Style x:Key="ModernButton" TargetType="Button">
-            <Setter Property="Background" Value="#4A90E2"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryGradient}"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="Padding" Value="20,12"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="6"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                CornerRadius="8">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="8" 
+                                                  ShadowDepth="3" 
+                                                  Opacity="0.3" 
+                                                  Color="#667eea"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#5DA3F0"/>
+                    <Setter Property="Background" Value="{StaticResource PrimaryGradientHover}"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#3A7BC8"/>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                        </Setter.Value>
+                    </Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <!-- Secondary Button Style -->
         <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
-            <Setter Property="Background" Value="#6C757D"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#7D8A94"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#5A6268"/>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="Background" Value="{StaticResource SecondaryGradient}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="8" 
+                                                  ShadowDepth="3" 
+                                                  Opacity="0.2" 
+                                                  Color="#000000"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <!-- Success Button Style -->
         <Style x:Key="SuccessButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
-            <Setter Property="Background" Value="#28A745"/>
+            <Setter Property="Background" Value="{StaticResource SuccessGradient}"/>
             <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="10" 
+                                                  ShadowDepth="4" 
+                                                  Opacity="0.4" 
+                                                  Color="#11998e"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#34C759"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#218838"/>
+                    <Setter Property="Background" Value="{StaticResource SuccessGradientHover}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
-        <!-- TextBox Style -->
+        <!-- Modern TextBox Style -->
         <Style x:Key="ModernTextBox" TargetType="TextBox">
-            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Padding" Value="12,10"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="BorderBrush" Value="#D0D7DE"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#d0d7de"/>
+            <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -79,43 +151,82 @@
                         <Border Background="{TemplateBinding Background}" 
                                 BorderBrush="{TemplateBinding BorderBrush}" 
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4">
-                            <ScrollViewer x:Name="PART_ContentHost" Margin="2"/>
+                                CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="4"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#4A90E2"/>
+                    <Setter Property="BorderBrush" Value="#667eea"/>
                 </Trigger>
                 <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#4A90E2"/>
+                    <Setter Property="BorderBrush" Value="#764ba2"/>
+                    <Setter Property="BorderThickness" Value="2"/>
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <!-- Glass Card Style -->
+        <Style x:Key="GlassCard" TargetType="Border">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0.95"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="24"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="20" 
+                                      ShadowDepth="5" 
+                                      Opacity="0.15" 
+                                      Color="#667eea"/>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
 
     <Grid>
+        <Grid.Background>
+            <StaticResource ResourceKey="BackgroundGradient"/>
+        </Grid.Background>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <Border Grid.Row="0" Background="White" Padding="20" 
-                BorderBrush="#E1E4E8" BorderThickness="0,0,0,1">
+        <!-- Modern Header with Gradient -->
+        <Border Grid.Row="0" 
+                Background="{StaticResource HeaderGradient}" 
+                Padding="24"
+                CornerRadius="0,0,20,20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" 
+                                  ShadowDepth="5" 
+                                  Opacity="0.3" 
+                                  Color="#667eea"/>
+            </Border.Effect>
             <StackPanel>
                 <TextBlock Text="Batch Folder Conversion" 
-                           FontSize="28" 
+                           FontSize="32" 
                            FontWeight="Bold"
-                           Foreground="#24292E"
-                           HorizontalAlignment="Center"/>
+                           Foreground="White"
+                           HorizontalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect BlurRadius="8" 
+                                          ShadowDepth="2" 
+                                          Opacity="0.5" 
+                                          Color="#000000"/>
+                    </TextBlock.Effect>
+                </TextBlock>
                 <TextBlock Text="Convert all caption files in a folder at once" 
-                           FontSize="14" 
-                           Foreground="#6A737D"
+                           FontSize="15" 
+                           Foreground="#f0f0f0"
                            HorizontalAlignment="Center"
-                           Margin="0,5,0,0"/>
+                           Margin="0,8,0,0"/>
             </StackPanel>
         </Border>
 
@@ -123,79 +234,93 @@
         <ScrollViewer Grid.Row="1" 
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">
-            <!-- Single WrapPanel containing all elements -->
             <WrapPanel Orientation="Horizontal"
                        HorizontalAlignment="Center"
                        Margin="30">
 
                 <!-- Folder Selection Card -->
-                <Border Background="White" 
-                        CornerRadius="8" 
-                        Padding="20"
+                <Border Style="{StaticResource GlassCard}"
                         Margin="10"
                         MinWidth="350"
                         MaxWidth="450"
                         VerticalAlignment="Top">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" 
-                                          ShadowDepth="2" 
-                                          Opacity="0.1" 
-                                          Color="#000000"/>
-                    </Border.Effect>
-
                     <StackPanel>
                         <TextBlock Text="Select Folder" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold"
-                                   Foreground="#24292E"
-                                   Margin="0,0,0,12"/>
+                                   FontSize="18" 
+                                   FontWeight="Bold"
+                                   Foreground="#667eea"
+                                   Margin="0,0,0,16"/>
 
                         <Button Content="Choose Folder" 
                                 Click="SelectFolder_Click" 
                                 Style="{StaticResource ModernButton}"
                                 HorizontalAlignment="Stretch"
-                                Margin="0,0,0,12"/>
+                                Margin="0,0,0,16"/>
 
-                        <!-- Drop Zone -->
+                        <!-- Drop Zone with Gradient Border -->
                         <Border x:Name="DropZoneBorder"
-                                BorderBrush="#D0D7DE"
-                                BorderThickness="2"
-                                CornerRadius="6"
-                                Padding="25"
+                                BorderThickness="3"
+                                CornerRadius="10"
+                                Padding="28"
                                 AllowDrop="True"
-                                Background="#F6F8FA"
                                 Drop="DropFolder"
                                 DragOver="DragOverFolder"
                                 DragLeave="DragLeaveFolder"
                                 HorizontalAlignment="Stretch"
-                                MinHeight="80">
+                                MinHeight="100">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#667eea" Offset="0"/>
+                                    <GradientStop Color="#764ba2" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="0.05">
+                                    <GradientStop Color="#667eea" Offset="0"/>
+                                    <GradientStop Color="#764ba2" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
                             <Border.Style>
                                 <Style TargetType="Border">
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="BorderBrush" Value="#4A90E2"/>
+                                            <Setter Property="Background">
+                                                <Setter.Value>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="0.1">
+                                                        <GradientStop Color="#667eea" Offset="0"/>
+                                                        <GradientStop Color="#764ba2" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Setter.Value>
+                                            </Setter>
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </Border.Style>
 
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Viewbox Width="28" Height="28" 
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,8">
+                                <Viewbox Width="36" Height="36" 
+                                         HorizontalAlignment="Center"
+                                         Margin="0,0,0,12">
                                     <Path Data="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
-                                        Stroke="#1d1d1d"
-                                        StrokeThickness="1.5"
-                                        StrokeStartLineCap="Round"
-                                        StrokeEndLineCap="Round"
-                                        StrokeLineJoin="Round"
-                                        Fill="Transparent"
-                                        Stretch="Uniform"/>
+                                          StrokeThickness="1.5"
+                                          StrokeStartLineCap="Round"
+                                          StrokeEndLineCap="Round"
+                                          StrokeLineJoin="Round"
+                                          Fill="Transparent"
+                                          Stretch="Uniform">
+                                        <Path.Stroke>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#667eea" Offset="0"/>
+                                                <GradientStop Color="#764ba2" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Path.Stroke>
+                                    </Path>
                                 </Viewbox>
                                 <TextBlock Text="Drag and drop folder here"
                                            HorizontalAlignment="Center"
-                                           FontSize="13"
-                                           Foreground="#6A737D"
+                                           FontSize="14"
+                                           FontWeight="Medium"
+                                           Foreground="#667eea"
                                            TextAlignment="Center"
                                            IsHitTestVisible="False"/>
                             </StackPanel>
@@ -203,47 +328,49 @@
 
                         <!-- Selected Folder Display -->
                         <Border x:Name="SelectedFolderDisplay"
-                                Background="#E8F5E9"
-                                BorderBrush="#4CAF50"
-                                BorderThickness="1"
-                                CornerRadius="4"
-                                Padding="10"
-                                Margin="0,12,0,0"
+                                CornerRadius="8"
+                                Padding="12"
+                                Margin="0,16,0,0"
                                 Visibility="Collapsed">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" Opacity="0.15">
+                                    <GradientStop Color="#11998e" Offset="0"/>
+                                    <GradientStop Color="#38ef7d" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#11998e" Offset="0"/>
+                                    <GradientStop Color="#38ef7d" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.BorderThickness>2</Border.BorderThickness>
                             <TextBlock x:Name="SelectedFolderText" 
                                        Text="" 
                                        TextWrapping="Wrap" 
-                                       FontSize="12"
-                                       Foreground="#2E7D32"/>
+                                       FontSize="13"
+                                       Foreground="#11998e"
+                                       FontWeight="Medium"/>
                         </Border>
                     </StackPanel>
                 </Border>
 
                 <!-- File Extension Card -->
-                <Border Background="White" 
-                        CornerRadius="8" 
-                        Padding="20"
+                <Border Style="{StaticResource GlassCard}"
                         Margin="10"
                         MinWidth="350"
                         MaxWidth="450"
                         VerticalAlignment="Top">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" 
-                                          ShadowDepth="2" 
-                                          Opacity="0.1" 
-                                          Color="#000000"/>
-                    </Border.Effect>
-
                     <StackPanel>
-                        <TextBlock Text="File Extension (Optional)" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold"
-                                   Foreground="#24292E"
-                                   Margin="0,0,0,6"/>
-                        <TextBlock Text="Default: .srt files" 
+                        <TextBlock Text="File Extension" 
+                                   FontSize="18" 
+                                   FontWeight="Bold"
+                                   Foreground="#667eea"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="Optional - Default: .srt files" 
                                    FontSize="12" 
-                                   Foreground="#6A737D"
-                                   Margin="0,0,0,10"/>
+                                   Foreground="#6c757d"
+                                   Margin="0,0,0,12"/>
 
                         <TextBox x:Name="CustomExtensionInput"
                                  Style="{StaticResource ModernTextBox}"
@@ -253,33 +380,24 @@
                 </Border>
 
                 <!-- Action Buttons Card -->
-                <Border Background="White" 
-                        CornerRadius="8" 
-                        Padding="20"
+                <Border Style="{StaticResource GlassCard}"
                         Margin="10"
                         MinWidth="350"
                         MaxWidth="450"
                         VerticalAlignment="Top">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" 
-                                          ShadowDepth="2" 
-                                          Opacity="0.1" 
-                                          Color="#000000"/>
-                    </Border.Effect>
-
                     <StackPanel>
-                        <TextBlock Text="Actions" 
-                                   FontSize="16" 
-                                   FontWeight="SemiBold"
-                                   Foreground="#24292E"
-                                   Margin="0,0,0,12"/>
+                        <TextBlock Text="⚡ Actions" 
+                                   FontSize="18" 
+                                   FontWeight="Bold"
+                                   Foreground="#667eea"
+                                   Margin="0,0,0,16"/>
 
                         <Button Content="Convert All Files"
                                 Click="ConvertAllFiles_Click"        
                                 Style="{StaticResource SuccessButton}"
                                 HorizontalAlignment="Stretch"
-                                Margin="0,0,0,10"
-                                Height="45"/>
+                                Margin="0,0,0,12"
+                                Height="48"/>
 
                         <Button Content="← Back to Menu" 
                                 Click="Back_Click" 
