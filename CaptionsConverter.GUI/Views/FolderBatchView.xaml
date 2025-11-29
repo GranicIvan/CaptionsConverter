@@ -41,6 +41,9 @@
 
         <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#667eea" Offset="0"/>
+            <GradientStop Color="#6b7bee" Offset="0.25"/>
+            <GradientStop Color="#7162eb" Offset="0.5"/>
+            <GradientStop Color="#7662d8" Offset="0.6"/>
             <GradientStop Color="#764ba2" Offset="1"/>
         </LinearGradientBrush>
 
@@ -210,7 +213,7 @@
             </Border.Effect>
             <StackPanel>
                 <TextBlock Text="Batch Folder Conversion" 
-                           FontSize="32" 
+                           FontSize="36" 
                            FontWeight="Bold"
                            Foreground="White"
                            HorizontalAlignment="Center">
