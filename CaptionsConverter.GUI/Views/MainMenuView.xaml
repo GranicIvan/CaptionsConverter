@@ -42,7 +42,7 @@
             <GradientStop Color="#764ba2" Offset="1"/>
         </LinearGradientBrush>
 
-        
+
         <!-- Menu Button Style - Purple Gradient -->
         <Style x:Key="MenuButton" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource PrimaryGradient}"/>
@@ -140,7 +140,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <!-- Modern Header with Gradient -->

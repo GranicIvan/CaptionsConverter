@@ -7,9 +7,9 @@
     <!-- <ImplicitUsings>enable</ImplicitUsings> --> <!-- Default -->
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms> <!-- <UseWindowsForms>true</UseWindowsForms> --> <!-- new -->
-    <Version>1.2.0</Version>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion> <!-- Updated AssemblyVersion -->
-    <FileVersion>1.2.0.0</FileVersion> <!-- Updated FileVersion -->
+    <Version>2.0.0.3</Version>
+    <AssemblyVersion>2.0.0.3</AssemblyVersion> <!-- Updated AssemblyVersion -->
+    <FileVersion>2.0.0.3</FileVersion> <!-- Updated FileVersion -->
   </PropertyGroup>
 
   <ItemGroup>
