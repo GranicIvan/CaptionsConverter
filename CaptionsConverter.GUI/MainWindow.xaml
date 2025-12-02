@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CaptionsConverter.GUI"
         mc:Ignorable="d"
         Title="Captions Converter" 
-        Height="800" 
+        Height="900" 
         Width="540"
         MinHeight="250"
         MinWidth="450"

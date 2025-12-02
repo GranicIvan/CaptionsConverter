@@ -5,10 +5,245 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CaptionsConverter.GUI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="540">
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Text="Main Menu" FontSize="24" Margin="0 0 0 20"/>
-        <Button Content="All files in folder" Click="Batch_Click" Margin="0 0 0 10"/>
-        <Button Content="Exit" Click="Exit_Click" Margin="0 10 0 0"/>
-    </StackPanel>
+             d:DesignHeight="900" d:DesignWidth="540">
+
+    <UserControl.Resources>
+        <!-- Gradient Brushes -->
+        <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#667eea" Offset="0"/>
+            <GradientStop Color="#764ba2" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="PrimaryGradientHover" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#7c8ef0" Offset="0"/>
+            <GradientStop Color="#8a5bb5" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="DangerGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#eb3349" Offset="0"/>
+            <GradientStop Color="#f45c43" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="DangerGradientHover" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#f04456" Offset="0"/>
+            <GradientStop Color="#f76b54" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#f5f7fa" Offset="0"/>
+            <GradientStop Color="#c3cfe2" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#667eea" Offset="0"/>
+            <GradientStop Color="#6b7bee" Offset="0.25"/>
+            <GradientStop Color="#7162eb" Offset="0.5"/>
+            <GradientStop Color="#7662d8" Offset="0.6"/>
+            <GradientStop Color="#764ba2" Offset="1"/>
+        </LinearGradientBrush>
+
+
+        <!-- Menu Button Style - Purple Gradient -->
+        <Style x:Key="MenuButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryGradient}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="12" 
+                                                  ShadowDepth="4" 
+                                                  Opacity="0.3" 
+                                                  Color="#667eea"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimaryGradientHover}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Danger Button Style (for Exit) - Red Gradient -->
+        <Style x:Key="DangerButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource DangerGradient}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="12" 
+                                                  ShadowDepth="4" 
+                                                  Opacity="0.3" 
+                                                  Color="#eb3349"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource DangerGradientHover}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <StaticResource ResourceKey="BackgroundGradient"/>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Modern Header with Gradient -->
+        <Border Grid.Row="0" 
+                Background="{StaticResource HeaderGradient}" 
+                Padding="24"
+                CornerRadius="0,0,20,20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" 
+                                  ShadowDepth="5" 
+                                  Opacity="0.3" 
+                                  Color="#667eea"/>
+            </Border.Effect>
+            <StackPanel>
+                <TextBlock Text="Captions Converter" 
+                           FontSize="36" 
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect BlurRadius="8" 
+                                          ShadowDepth="2" 
+                                          Opacity="0.5" 
+                                          Color="#000000"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock Text="Choose your conversion method" 
+                           FontSize="15" 
+                           Foreground="#f0f0f0"
+                           HorizontalAlignment="Center"
+                           Margin="0,8,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Menu Content -->
+        <ScrollViewer Grid.Row="1" 
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        MaxWidth="500"
+                        Margin="40">
+
+                <!-- Glass Card Container -->
+                <Border Background="White" 
+                        CornerRadius="12" 
+                        Padding="32"
+                        Opacity="0.95">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20" 
+                                          ShadowDepth="5" 
+                                          Opacity="0.15" 
+                                          Color="#667eea"/>
+                    </Border.Effect>
+
+                    <StackPanel>
+                        <!-- Menu Title -->
+                        <TextBlock Text="Main Menu" 
+                                   FontSize="24" 
+                                   FontWeight="Bold"
+                                   Foreground="#667eea"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,32"/>
+
+                        <!-- Batch Conversion Button -->
+                        <Button Content="Batch Folder Conversion"
+                                Click="Batch_Click"
+                                Style="{StaticResource MenuButton}"
+                                ToolTip="Convert all caption files in a folder"/>
+
+                        <!-- Single File Conversion Button (Future) -->
+                        <Button Content="Single File Conversion"
+                                Style="{StaticResource MenuButton}"
+                                ToolTip="Convert a single caption file"
+                                IsEnabled="False"/>
+
+                        <!-- Settings Button (Future) -->
+                        <Button Content="Settings"
+                                Style="{StaticResource MenuButton}"
+                                ToolTip="Configure application settings"
+                                IsEnabled="False"/>
+
+                        <!-- Separator -->
+                        <Separator Margin="0,16,0,16" 
+                                   Background="#e0e0e0"
+                                   Height="2"/>
+
+                        <!-- Exit Button -->
+                        <Button Content="Exit Application"
+                                Click="Exit_Click"
+                                Style="{StaticResource DangerButton}"
+                                ToolTip="Close the application"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Version Info -->
+                <TextBlock Text="{Binding AppVersion}" 
+                           FontSize="12" 
+                           Foreground="#6c757d"
+                           HorizontalAlignment="Center"
+                           Margin="0,20,0,0"
+                           Opacity="0.7"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>
