@@ -376,8 +376,8 @@
 
                         <TextBox x:Name="CustomExtensionInput"
                                  Style="{StaticResource ModernTextBox}"
-                                 ToolTip="Enter a file extension like '.txt' or '.sub'. Leave empty to process .srt files."
-                                 Text=".srt"/>
+                                 ToolTip="Enter a file extension like '.txt' or '.sub'. Leave empty to process .str files."
+                                 Text=".str"/>
                     </StackPanel>
                 </Border>
 

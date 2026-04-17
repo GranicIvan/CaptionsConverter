@@ -24,24 +24,76 @@ namespace CaptionsConverter.Logic
             return result;
         }
 
-
-        public static ConversionResult FileReading(string folderPath, string fileExtension)
+        public static ConversionResult SingleFileConversion(string filePath)
         {
-            if ( string.IsNullOrWhiteSpace(fileExtension))
-            {
-                fileExtension = "*.str"; // Default file extension
-            }
             try
             {
-                var files = Directory.EnumerateFiles(folderPath, "*"+fileExtension);
-
-                if (!files.Any())
+                if (!File.Exists(filePath))
                 {
-                    //TODO: Find if there are files with different extensions, 
                     return new ConversionResult
                     {
                         Status = ConversionStatus.NoFilesFound,
-                        Message = "No files found with the specified extension."
+                        Message = "The specified file does not exist."
+                    };
+                }
+
+                Encoding sourceEncoding = DetectEncoding(filePath);
+                string contents = File.ReadAllText(filePath, sourceEncoding);
+                string result = changeCharacters(contents);
+
+                if (contents == result)
+                {
+                    return new ConversionResult
+                    {
+                        Status = ConversionStatus.SkippedAllFiles,
+                        Message = "No changes detected in the file."
+                    };
+                }
+
+                File.WriteAllText(filePath, result, Encoding.UTF8);
+
+                return new ConversionResult
+                {
+                    Status = ConversionStatus.Success,
+                    Message = $"File converted successfully: {Path.GetFileName(filePath)}"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ConversionResult
+                {
+                    Status = ConversionStatus.Failed,
+                    Message = $"Unexpected error: {ex.Message}"
+                };
+            }
+        }
+
+        public static ConversionResult FileReading(string folderPath, string fileExtension)
+        {
+            if (string.IsNullOrWhiteSpace(fileExtension))
+            {
+                fileExtension = ".str"; // Default file extension
+            }
+            else
+            {
+                // Normalize: strip any leading "*" or wildcards, ensure it starts with "."
+                fileExtension = fileExtension.TrimStart('*');
+                if (!fileExtension.StartsWith('.'))
+                {
+                    fileExtension = "." + fileExtension;
+                }
+            }
+
+            try
+            {
+                var files = Directory.EnumerateFiles(folderPath, "*" + fileExtension);
+
+                if (!files.Any())
+                {
+                    return new ConversionResult
+                    {
+                        Status = ConversionStatus.NoFilesFound,
+                        Message = $"No files found with extension '{fileExtension}' in folder: {folderPath}"
                     };
                 }
 

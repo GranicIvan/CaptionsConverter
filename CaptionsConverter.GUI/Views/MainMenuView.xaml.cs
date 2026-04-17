@@ -39,6 +39,11 @@ namespace CaptionsConverter.GUI.Views
             ((MainWindow)Application.Current.MainWindow).NavigateTo(new FolderBatchView());            
         }
 
+        private void SingleFile_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).NavigateTo(new SingleFileView());
+        }
+
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

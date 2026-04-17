@@ -211,11 +211,11 @@
                                 Style="{StaticResource MenuButton}"
                                 ToolTip="Convert all caption files in a folder"/>
 
-                        <!-- Single File Conversion Button (Future) -->
+                        <!-- Single File Conversion Button -->
                         <Button Content="Single File Conversion"
+                                Click="SingleFile_Click"
                                 Style="{StaticResource MenuButton}"
-                                ToolTip="Convert a single caption file"
-                                IsEnabled="False"/>
+                                ToolTip="Convert a single caption file"/>
 
                         <!-- Settings Button (Future) -->
                         <Button Content="Settings"
