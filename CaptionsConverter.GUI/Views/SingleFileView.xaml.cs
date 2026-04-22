@@ -44,6 +44,20 @@ namespace CaptionsConverter.GUI.Views
                 return;
             }
 
+            if (ConfigurationManager.ShouldConfirmBeforeConversion())
+            {
+                var confirmResult = MessageBox.Show(
+                    $"Are you sure you want to convert this file?\n\n{Path.GetFileName(_selectedFilePath)}\n\nThe file will be overwritten.",
+                    "Confirm Conversion",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (confirmResult != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+            }
+
             ConversionResult result = CCLogic.SingleFileConversion(_selectedFilePath);
 
             MessageBoxImage icon = result.Status switch
@@ -56,6 +70,13 @@ namespace CaptionsConverter.GUI.Views
             };
 
             MessageBox.Show(result.Message, result.Status.ToString(), MessageBoxButton.OK, icon);
+
+            if (result.Status == ConversionStatus.Success && 
+                ConfigurationManager.ShouldAutoOpenFolder() && 
+                !string.IsNullOrEmpty(result.OutputFolderPath))
+            {
+                ConfigurationManager.OpenFolderInExplorer(result.OutputFolderPath);
+            }
         }
 
         private void DragOverFile(object sender, DragEventArgs e)

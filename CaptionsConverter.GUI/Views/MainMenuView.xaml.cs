@@ -44,9 +44,9 @@ namespace CaptionsConverter.GUI.Views
             ((MainWindow)Application.Current.MainWindow).NavigateTo(new SingleFileView());
         }
 
-        private void LanguageSettings_Click(object sender, RoutedEventArgs e)
+        private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).NavigateTo(new LanguageSelectionView());
+            ((MainWindow)Application.Current.MainWindow).NavigateTo(new SettingsView());
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

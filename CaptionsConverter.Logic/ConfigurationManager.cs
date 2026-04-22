@@ -1,5 +1,6 @@
 using System.Text.Json;
 using CaptionsConverter.Logic.Models;
+using System.Diagnostics;
 
 namespace CaptionsConverter.Logic
 {
@@ -91,6 +92,8 @@ namespace CaptionsConverter.Logic
             {
                 DefaultFileExtension = ".str",
                 DefaultFallbackEncoding = "windows-1252",
+                AutoOpenOutputFolder = false,
+                ConfirmBeforeConversion = true,
                 LanguageMappings = new List<LanguageMapping>
                 {
                     new LanguageMapping
@@ -99,12 +102,12 @@ namespace CaptionsConverter.Logic
                         IsEnabled = true,
                         CharacterReplacements = new Dictionary<string, string>
                         {
-                            ["è"] = "?",
-                            ["ð"] = "?",
-                            ["æ"] = "?",
-                            ["È"] = "?",
-                            ["Ð"] = "?",
-                            ["Æ"] = "?"
+                            ["?"] = "?",
+                            ["?"] = "?",
+                            ["?"] = "?",
+                            ["?"] = "?",
+                            ["?"] = "?",
+                            ["?"] = "?"
                         }
                     }
                 }
@@ -169,6 +172,46 @@ namespace CaptionsConverter.Logic
             foreach (var mapping in Settings.LanguageMappings)
             {
                 mapping.IsEnabled = true;
+            }
+        }
+
+        public static bool ShouldAutoOpenFolder()
+        {
+            return Settings.AutoOpenOutputFolder;
+        }
+
+        public static bool ShouldConfirmBeforeConversion()
+        {
+            return Settings.ConfirmBeforeConversion;
+        }
+
+        public static void SetAutoOpenFolder(bool value)
+        {
+            Settings.AutoOpenOutputFolder = value;
+        }
+
+        public static void SetConfirmBeforeConversion(bool value)
+        {
+            Settings.ConfirmBeforeConversion = value;
+        }
+
+        public static void OpenFolderInExplorer(string folderPath)
+        {
+            if (Directory.Exists(folderPath))
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = folderPath,
+                        UseShellExecute = true,
+                        Verb = "open"
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error opening folder: {ex.Message}");
+                }
             }
         }
     }

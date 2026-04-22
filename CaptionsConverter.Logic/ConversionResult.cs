@@ -11,8 +11,8 @@ namespace CaptionsConverter.Logic
         public ConversionStatus Status { get; set; }
         public string Message { get; set; } = "";
         public List<string> ProcessedFilesSuccessfully { get; set; } = new List<string>();
-
         public List<string> FailedFiles { get; set; } = new List<string>();
+        public string? OutputFolderPath { get; set; }
     }
 
 

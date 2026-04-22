@@ -46,7 +46,8 @@ namespace CaptionsConverter.Logic
                 return new ConversionResult
                 {
                     Status = ConversionStatus.Success,
-                    Message = $"File converted successfully: {Path.GetFileName(filePath)}"
+                    Message = $"File converted successfully: {Path.GetFileName(filePath)}",
+                    OutputFolderPath = Path.GetDirectoryName(filePath)
                 };
             }
             catch (Exception ex)
@@ -118,14 +119,16 @@ namespace CaptionsConverter.Logic
                     return new ConversionResult
                     {
                         Status = ConversionStatus.PartialSuccess,
-                        Message = $"Changes were made in {successCount} of {files.Count()} files. Some were skipped or failed."
+                        Message = $"Changes were made in {successCount} of {files.Count()} files. Some were skipped or failed.",
+                        OutputFolderPath = folderPath
                     };
                 }
 
                 return new ConversionResult
                 {
                     Status = ConversionStatus.Success,
-                    Message = "All files converted successfully."
+                    Message = "All files converted successfully.",
+                    OutputFolderPath = folderPath
                 };
 
             }

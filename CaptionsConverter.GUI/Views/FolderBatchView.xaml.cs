@@ -50,6 +50,19 @@ namespace CaptionsConverter.GUI.Views
                 return;
             }
 
+            if (ConfigurationManager.ShouldConfirmBeforeConversion())
+            {
+                var confirmResult = MessageBox.Show(
+                    $"Are you sure you want to convert all files in this folder?\n\n{_selectedFolderPath}\n\nFiles will be overwritten.",
+                    "Confirm Batch Conversion",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (confirmResult != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+            }
 
             ConversionResult result = CCLogic.FileReading(_selectedFolderPath, extension);           
 
@@ -64,6 +77,13 @@ namespace CaptionsConverter.GUI.Views
             };
 
             MessageBox.Show(result.Message, result.Status.ToString(), MessageBoxButton.OK, icon);
+
+            if ((result.Status == ConversionStatus.Success || result.Status == ConversionStatus.PartialSuccess) && 
+                ConfigurationManager.ShouldAutoOpenFolder() && 
+                !string.IsNullOrEmpty(result.OutputFolderPath))
+            {
+                ConfigurationManager.OpenFolderInExplorer(result.OutputFolderPath);
+            }
         }
 
 

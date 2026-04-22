@@ -5,6 +5,8 @@ namespace CaptionsConverter.Logic.Models
         public string DefaultFileExtension { get; set; } = ".str";
         public string DefaultFallbackEncoding { get; set; } = "windows-1252";
         public List<LanguageMapping> LanguageMappings { get; set; } = new();
+        public bool AutoOpenOutputFolder { get; set; } = false;
+        public bool ConfirmBeforeConversion { get; set; } = true;
     }
 
     public class LanguageMapping

@@ -255,11 +255,11 @@
                                 Style="{StaticResource MenuButton}"
                                 ToolTip="Convert a single caption file"/>
 
-                        <!-- Language Settings Button -->
-                        <Button Content="Language Settings"
-                                Click="LanguageSettings_Click"
+                        <!-- Settings Button -->
+                        <Button Content="Settings"
+                                Click="Settings_Click"
                                 Style="{StaticResource WarningButton}"
-                                ToolTip="Configure language character mappings"/>
+                                ToolTip="Configure application settings"/>
 
                         <!-- Separator -->
                         <Separator Margin="0,16,0,16" 
