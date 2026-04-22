@@ -44,6 +44,11 @@ namespace CaptionsConverter.GUI.Views
             ((MainWindow)Application.Current.MainWindow).NavigateTo(new SingleFileView());
         }
 
+        private void LanguageSettings_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).NavigateTo(new LanguageSelectionView());
+        }
+
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

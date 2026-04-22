@@ -8,16 +8,7 @@ namespace CaptionsConverter.Logic
 
         public static string changeCharacters(string contents)
         {
-            // TODO: Add more language specific characters if needed
-            var replacements = new Dictionary<char, char>
-            {
-                ['è'] = 'č',
-                ['ð'] = 'đ',
-                ['æ'] = 'ć',
-                ['È'] = 'Č',
-                ['Ð'] = 'Đ',
-                ['Æ'] = 'Ć'
-            };
+            var replacements = ConfigurationManager.GetActiveCharacterReplacements();
 
             string result = replacements.Aggregate(contents, (current, pair) => current.Replace(pair.Key, pair.Value));
 
@@ -68,15 +59,14 @@ namespace CaptionsConverter.Logic
             }
         }
 
-        public static ConversionResult FileReading(string folderPath, string fileExtension)
+        public static ConversionResult FileReading(string folderPath, string? fileExtension = null)
         {
             if (string.IsNullOrWhiteSpace(fileExtension))
             {
-                fileExtension = ".str"; // Default file extension
+                fileExtension = ConfigurationManager.Settings.DefaultFileExtension;
             }
             else
             {
-                // Normalize: strip any leading "*" or wildcards, ensure it starts with "."
                 fileExtension = fileExtension.TrimStart('*');
                 if (!fileExtension.StartsWith('.'))
                 {
@@ -101,13 +91,12 @@ namespace CaptionsConverter.Logic
 
                 foreach (string file in files)
                 {
-                    //Console.WriteLine(file);                
                     Encoding sourceEncoding = DetectEncoding(file);
                     string contents = File.ReadAllText(file, sourceEncoding);
                     string result = CCLogic.changeCharacters(contents);
                     if(contents == result)
                     {                       
-                        continue; // To not overwrite the file if no changes were made
+                        continue;
                     }
                     File.WriteAllText(file, result, Encoding.UTF8);
                     successCount++;
@@ -147,7 +136,6 @@ namespace CaptionsConverter.Logic
                     Status = ConversionStatus.Failed,
                     Message = $"Unexpected error: {ex.Message}"
                 };
-                //throw;
             }
         }
 
@@ -166,20 +154,17 @@ namespace CaptionsConverter.Logic
             {
                 Console.WriteLine($"Detected encoding: {detector.Charset} for file: {Path.GetFileName(filePath)}");
 
-                // Try to return the corresponding Encoding object
                 try
                 {
                     return Encoding.GetEncoding(detector.Charset);
                 }
                 catch
                 {
-                    //TODO: Rethrow to be handled by the caller
-                    Console.WriteLine("Unsupported encoding detected, falling back to Windows-1252.");
+                    Console.WriteLine($"Unsupported encoding detected, falling back to {ConfigurationManager.Settings.DefaultFallbackEncoding}.");
                 }
             }
 
-            // Fallback
-            return Encoding.GetEncoding("windows-1252");
+            return Encoding.GetEncoding(ConfigurationManager.Settings.DefaultFallbackEncoding);
         }
 
 

@@ -19,6 +19,16 @@
             <GradientStop Color="#8a5bb5" Offset="1"/>
         </LinearGradientBrush>
 
+        <LinearGradientBrush x:Key="WarningGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#f093fb" Offset="0"/>
+            <GradientStop Color="#f5576c" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="WarningGradientHover" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#f5a4ff" Offset="0"/>
+            <GradientStop Color="#f76a7d" Offset="1"/>
+        </LinearGradientBrush>
+
         <LinearGradientBrush x:Key="DangerGradient" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#eb3349" Offset="0"/>
             <GradientStop Color="#f45c43" Offset="1"/>
@@ -85,6 +95,34 @@
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Warning Button Style (for Settings) -->
+        <Style x:Key="WarningButton" TargetType="Button" BasedOn="{StaticResource MenuButton}">
+            <Setter Property="Background" Value="{StaticResource WarningGradient}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="12" 
+                                                  ShadowDepth="4" 
+                                                  Opacity="0.3" 
+                                                  Color="#f093fb"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource WarningGradientHover}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -217,11 +255,11 @@
                                 Style="{StaticResource MenuButton}"
                                 ToolTip="Convert a single caption file"/>
 
-                        <!-- Settings Button (Future) -->
-                        <Button Content="Settings"
-                                Style="{StaticResource MenuButton}"
-                                ToolTip="Configure application settings"
-                                IsEnabled="False"/>
+                        <!-- Language Settings Button -->
+                        <Button Content="Language Settings"
+                                Click="LanguageSettings_Click"
+                                Style="{StaticResource WarningButton}"
+                                ToolTip="Configure language character mappings"/>
 
                         <!-- Separator -->
                         <Separator Margin="0,16,0,16" 
