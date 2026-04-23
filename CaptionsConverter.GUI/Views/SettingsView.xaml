@@ -163,6 +163,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" 
@@ -199,7 +200,7 @@
         <ScrollViewer Grid.Row="1" 
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled"
-                      Margin="30">
+                      Margin="30,30,30,0">
             <StackPanel MaxWidth="700">
 
                 <Border Style="{StaticResource GlassCard}"
@@ -293,23 +294,27 @@
                     </StackPanel>
                 </Border>
 
-                <Border Style="{StaticResource GlassCard}">
-                    <StackPanel>
-                        <Button Content="Save All Settings"
-                                Click="SaveSettings_Click"
-                                Style="{StaticResource SuccessButton}"
-                                HorizontalAlignment="Stretch"
-                                Margin="0,0,0,12"
-                                Height="48"/>
-
-                        <Button Content="Back to Menu" 
-                                Click="Back_Click" 
-                                Style="{StaticResource SecondaryButton}"
-                                HorizontalAlignment="Stretch"/>
-                    </StackPanel>
-                </Border>
-
             </StackPanel>
         </ScrollViewer>
+
+        <!-- Fixed bottom action bar -->
+        <Border Grid.Row="2"
+                Style="{StaticResource GlassCard}"
+                Margin="30,12,30,20">
+            <StackPanel>
+                <Button Content="Save All Settings"
+                        Click="SaveSettings_Click"
+                        Style="{StaticResource SuccessButton}"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,0,0,12"
+                        Height="48"/>
+
+                <Button Content="Back to Menu" 
+                        Click="Back_Click" 
+                        Style="{StaticResource SecondaryButton}"
+                        HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Border>
+
     </Grid>
 </UserControl>
